@@ -1,0 +1,28 @@
+services:
+  radis:
+      image: redis:7-alpine
+      container_name: radis
+      ports:
+        - "6379:6379"
+      volumes:
+        - radis_data:/data
+      command: redis-server --appendonly yes
+      restart: always
+
+        
+  mongo:
+      image: mongo:7
+      container_name: mongodb
+      ports:
+        - "27017:27017"
+      volumes:
+        - mongo_data:/data/db
+      environment:
+        MONGO_INITDB_DATABASE: root
+      restart: always      
+
+volumes:
+  radis_data:
+    driver: local
+  mongo_data:
+    driver: local     
